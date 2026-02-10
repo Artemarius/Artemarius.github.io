@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artem Shamsuarov — Computer Vision & Real-Time Systems Engineer</title>
+    <meta name="description" content="Research and Software Development Engineer with 15+ years in C++/CUDA, computer vision, 3D reconstruction, and real-time image processing.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-tertiary: #1a1a26;
+            --bg-card: #14141e;
+            --border: #2a2a3a;
+            --border-hover: #3a3a5a;
+            --text-primary: #e8e8f0;
+            --text-secondary: #9898b0;
+            --text-muted: #6868808a;
+            --accent: #00d4aa;
+            --accent-dim: #00d4aa22;
+            --accent-glow: #00d4aa44;
+            --accent-secondary: #0088ff;
+            --accent-secondary-dim: #0088ff22;
+            --gradient-accent: linear-gradient(135deg, #00d4aa, #0088ff);
+            --font-display: 'Outfit', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+            scrollbar-color: var(--border) var(--bg-primary);
+        }
+
+        body {
+            font-family: var(--font-display);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Noise texture overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        /* Grid background */
+        .grid-bg {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(var(--border) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 60px 60px;
+            opacity: 0.04;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Animated gradient orbs */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            pointer-events: none;
+            z-index: 0;
+            animation: orbFloat 20s ease-in-out infinite;
+        }
+        .orb-1 {
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, var(--accent-dim), transparent 70%);
+            top: -200px; right: -200px;
+            animation-delay: 0s;
+        }
+        .orb-2 {
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, var(--accent-secondary-dim), transparent 70%);
+            bottom: -150px; left: -150px;
+            animation-delay: -10s;
+        }
+        @keyframes orbFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -30px) scale(1.05); }
+            66% { transform: translate(-20px, 20px) scale(0.95); }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+        nav .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 60px;
+        }
+        nav .logo {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--accent);
+            letter-spacing: 0.05em;
+        }
+        nav .logo span {
+            color: var(--text-muted);
+        }
+        nav .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        nav .nav-links a {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            transition: color 0.2s;
+            position: relative;
+        }
+        nav .nav-links a:hover {
+            color: var(--accent);
+        }
+        nav .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+        nav .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Mobile nav toggle */
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+        .nav-toggle span {
+            display: block;
+            width: 20px;
+            height: 2px;
+            background: var(--text-secondary);
+            margin: 4px 0;
+            transition: all 0.3s;
+        }
+
+        /* Main content */
+        main {
+            position: relative;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Sections */
+        section {
+            padding: 6rem 0;
+        }
+
+        .section-label {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .section-label::before {
+            content: '';
+            display: inline-block;
+            width: 24px;
+            height: 1px;
+            background: var(--accent);
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            letter-spacing: -0.02em;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 60px;
+            position: relative;
+        }
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        .hero-text .overline {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--accent);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeSlideUp 0.6s ease forwards;
+            animation-delay: 0.2s;
+        }
+        .hero-text h1 {
+            font-size: 3.8rem;
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeSlideUp 0.6s ease forwards;
+            animation-delay: 0.4s;
+        }
+        .hero-text h1 .gradient-text {
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-text .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            max-width: 520px;
+            margin-bottom: 2.5rem;
+            opacity: 0;
+            animation: fadeSlideUp 0.6s ease forwards;
+            animation-delay: 0.6s;
+        }
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: fadeSlideUp 0.6s ease forwards;
+            animation-delay: 0.8s;
+        }
+        .btn {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            padding: 0.85rem 2rem;
+            border-radius: 6px;
+            text-decoration: none;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .btn-primary {
+            background: var(--accent);
+            color: var(--bg-primary);
+            border: 1px solid var(--accent);
+            font-weight: 600;
+        }
+        .btn-primary:hover {
+            background: transparent;
+            color: var(--accent);
+            box-shadow: 0 0 30px var(--accent-dim);
+        }
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+        }
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* Hero visual — stat cards */
+        .hero-visual {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            opacity: 0;
+            animation: fadeSlideUp 0.8s ease forwards;
+            animation-delay: 0.6s;
+        }
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .stat-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-2px);
+        }
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 2px;
+            background: var(--gradient-accent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .stat-card:hover::before {
+            opacity: 1;
+        }
+        .stat-number {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+        .stat-label {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 0.3rem;
+        }
+
+        /* Experience section */
+        .timeline {
+            position: relative;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: linear-gradient(to bottom, var(--accent), var(--border), transparent);
+        }
+        .timeline-item {
+            padding-left: 3rem;
+            padding-bottom: 3.5rem;
+            position: relative;
+        }
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -4px;
+            top: 6px;
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 12px var(--accent-glow);
+        }
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+        .timeline-company {
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+        .timeline-role {
+            font-size: 0.95rem;
+            color: var(--accent);
+            font-weight: 500;
+            margin-bottom: 0.3rem;
+        }
+        .timeline-meta {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+        }
+        .timeline-body {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+        .timeline-body ul {
+            list-style: none;
+            margin-top: 0.75rem;
+        }
+        .timeline-body li {
+            position: relative;
+            padding-left: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        .timeline-body li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        /* Skills section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 1.25rem;
+        }
+        .skill-group {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.75rem;
+            transition: all 0.3s ease;
+        }
+        .skill-group:hover {
+            border-color: var(--border-hover);
+        }
+        .skill-group-title {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .skill-group-title .icon {
+            font-size: 1rem;
+        }
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .skill-tag {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            padding: 0.35rem 0.8rem;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text-secondary);
+            transition: all 0.2s;
+        }
+        .skill-tag:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        .skill-tag.highlight {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: var(--accent-dim);
+        }
+
+        /* Publications section */
+        .pub-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+        .pub-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem 1.75rem;
+            transition: all 0.3s ease;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 1.25rem;
+            align-items: start;
+        }
+        .pub-item:hover {
+            border-color: var(--border-hover);
+            transform: translateX(4px);
+        }
+        .pub-type {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            white-space: nowrap;
+            margin-top: 3px;
+        }
+        .pub-type.patent {
+            background: var(--accent-secondary-dim);
+            color: var(--accent-secondary);
+            border: 1px solid #0088ff33;
+        }
+        .pub-type.paper {
+            background: var(--accent-dim);
+            color: var(--accent);
+            border: 1px solid #00d4aa33;
+        }
+        .pub-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            line-height: 1.5;
+        }
+        .pub-venue {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+        .pub-year {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+        }
+        .pub-item a {
+            color: inherit;
+            text-decoration: none;
+        }
+        .pub-item a:hover .pub-title {
+            color: var(--accent);
+        }
+
+        /* Education section */
+        .edu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.25rem;
+        }
+        .edu-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.75rem;
+            transition: all 0.3s ease;
+        }
+        .edu-card:hover {
+            border-color: var(--border-hover);
+        }
+        .edu-degree {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+        }
+        .edu-school {
+            color: var(--accent);
+            font-weight: 500;
+            margin-bottom: 0.3rem;
+        }
+        .edu-field {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+        .edu-meta {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            display: flex;
+            gap: 1.5rem;
+        }
+        .edu-gpa {
+            color: var(--accent);
+        }
+
+        /* Contact section */
+        .contact-section {
+            text-align: center;
+            padding: 6rem 0 4rem;
+        }
+        .contact-section h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+        .contact-section p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            margin-bottom: 2.5rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 2rem 0;
+            text-align: center;
+        }
+        footer p {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+        }
+
+        /* Animations */
+        @keyframes fadeSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            .hero-text h1 {
+                font-size: 2.6rem;
+            }
+            .hero-visual {
+                max-width: 400px;
+            }
+            .section-title {
+                font-size: 1.8rem;
+            }
+            .pub-item {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+            .pub-type {
+                justify-self: start;
+            }
+            .pub-year {
+                order: -1;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .nav-links {
+                display: none;
+            }
+            .nav-toggle {
+                display: block;
+            }
+            nav.nav-open .nav-links {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                right: 0;
+                background: rgba(10, 10, 15, 0.95);
+                backdrop-filter: blur(20px);
+                padding: 1.5rem 2rem;
+                border-bottom: 1px solid var(--border);
+                gap: 1rem;
+            }
+            .hero {
+                min-height: auto;
+                padding-top: 120px;
+                padding-bottom: 3rem;
+            }
+            .hero-text h1 {
+                font-size: 2rem;
+            }
+            .hero-visual {
+                grid-template-columns: 1fr 1fr;
+            }
+            section {
+                padding: 4rem 0;
+            }
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+            .edu-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+
+<!-- Navigation -->
+<nav id="navbar">
+    <div class="nav-inner">
+        <div class="logo">artem<span>.shamsuarov</span></div>
+        <button class="nav-toggle" onclick="document.getElementById('navbar').classList.toggle('nav-open')" aria-label="Toggle navigation">
+            <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links">
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#publications">Publications</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </div>
+</nav>
+
+<main>
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="overline">Research & Software Development Engineer</div>
+                <h1>
+                    Artem<br>
+                    <span class="gradient-text">Shamsuarov</span>
+                </h1>
+                <p class="subtitle">
+                    15+ years building production-grade computer vision systems. 
+                    Specialized in real-time 3D reconstruction, multi-camera pipelines, 
+                    SLAM, and GPU-accelerated processing. Published researcher with 7+ patents.
+                </p>
+                <div class="hero-actions">
+                    <a href="#contact" class="btn btn-primary">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                        Get in Touch
+                    </a>
+                    <a href="https://github.com/Artemarius" target="_blank" class="btn btn-secondary">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+                        GitHub
+                    </a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="stat-card">
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label">Years C++ / CUDA</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">7+</div>
+                    <div class="stat-label">Patents Granted</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Countries Worked</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">2</div>
+                    <div class="stat-label">Master's Degrees</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Experience Section -->
+<section id="experience">
+    <div class="container">
+        <div class="reveal">
+            <div class="section-label">Career</div>
+            <h2 class="section-title">Work Experience</h2>
+        </div>
+        <div class="timeline">
+            <div class="timeline-item reveal">
+                <div class="timeline-header">
+                    <div>
+                        <div class="timeline-company">Artec Europe S.a.r.l.</div>
+                        <div class="timeline-role">Research & Software Development Engineer</div>
+                    </div>
+                    <div class="timeline-meta">08/2020 — Present · Luxembourg</div>
+                </div>
+                <div class="timeline-body">
+                    <ul>
+                        <li>Developed production-ready CV algorithms for multi-camera 3D scanning systems</li>
+                        <li>Implemented real-time image processing pipelines handling large-scale visual datasets from structured light, laser, lidar, and RGB scanners</li>
+                        <li>Achieved 10–100× performance improvements through CUDA optimization</li>
+                        <li>Designed real-time tracking and fusion algorithms, automated defect detection, and quality control systems</li>
+                        <li>Maintained CI/CD pipelines (Jenkins) and mentored junior engineers</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="timeline-item reveal">
+                <div class="timeline-header">
+                    <div>
+                        <div class="timeline-company">Artec Group</div>
+                        <div class="timeline-role">Research & Software Development Engineer</div>
+                    </div>
+                    <div class="timeline-meta">09/2015 — 08/2020 · Moscow, Russia</div>
+                </div>
+                <div class="timeline-body">
+                    <ul>
+                        <li>Built real-time fusion algorithms for mobile 3D scanner with onboard processing</li>
+                        <li>Implemented 3D reconstruction and SLAM algorithms for production scanning systems</li>
+                        <li>Achieved 70% latency reduction through CUDA/OpenCL/Vulkan optimization</li>
+                        <li>Designed next-best-view planning system and software architecture for distributed computing clusters</li>
+                        <li>Built multi-platform apps (iOS/Swift/ObjC, Windows/C++) for industrial vision</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="timeline-item reveal">
+                <div class="timeline-header">
+                    <div>
+                        <div class="timeline-company">Samsung R&D Institute Russia</div>
+                        <div class="timeline-role">Expert Engineer — Algorithm Laboratory</div>
+                    </div>
+                    <div class="timeline-meta">06/2012 — 09/2015 · Moscow, Russia</div>
+                </div>
+                <div class="timeline-body">
+                    <ul>
+                        <li>Developed CV algorithms and apps deployed to millions of mobile users</li>
+                        <li>Built complete 3D reconstruction pipeline: SfM, SLAM, depth estimation, depth fusion</li>
+                        <li>Implemented near-duplicate image retrieval and face detection systems</li>
+                        <li>Published at IEEE CVPR Workshop; secured 3 patents</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="timeline-item reveal">
+                <div class="timeline-header">
+                    <div>
+                        <div class="timeline-company">Samsung Electronics</div>
+                        <div class="timeline-role">R&D Engineer — Semiconductor Process Development</div>
+                    </div>
+                    <div class="timeline-meta">09/2009 — 06/2012 · Suwon, South Korea</div>
+                </div>
+                <div class="timeline-body">
+                    <ul>
+                        <li>Developed optimization algorithms for computational lithography at next-gen semiconductor nodes</li>
+                        <li>Created C++/Qt/Python tools for Optical Proximity Correction and Resolution Enhancement</li>
+                        <li>Collaborated with Cadence, Mentor Graphics, Synopsys; published at SPIE; obtained 2 US patents</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Skills Section -->
+<section id="skills">
+    <div class="container">
+        <div class="reveal">
+            <div class="section-label">Expertise</div>
+            <h2 class="section-title">Technical Skills</h2>
+        </div>
+        <div class="skills-grid">
+            <div class="skill-group reveal">
+                <div class="skill-group-title"><span class="icon">⚡</span> Core Programming</div>
+                <div class="skill-tags">
+                    <span class="skill-tag highlight">C++ (Expert, 15+ yrs)</span>
+                    <span class="skill-tag highlight">CUDA (Expert)</span>
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">C#</span>
+                    <span class="skill-tag">MATLAB</span>
+                    <span class="skill-tag">OOP & Design Patterns</span>
+                    <span class="skill-tag">STL / Boost</span>
+                    <span class="skill-tag">Multithreading</span>
+                    <span class="skill-tag">Memory Management</span>
+                </div>
+            </div>
+            <div class="skill-group reveal">
+                <div class="skill-group-title"><span class="icon">👁</span> Computer Vision</div>
+                <div class="skill-tags">
+                    <span class="skill-tag highlight">Real-time Image Processing</span>
+                    <span class="skill-tag highlight">Multi-camera Systems</span>
+                    <span class="skill-tag highlight">3D Reconstruction</span>
+                    <span class="skill-tag highlight">SLAM</span>
+                    <span class="skill-tag">Structure-from-Motion</span>
+                    <span class="skill-tag">Feature Detection & Matching</span>
+                    <span class="skill-tag">Object Detection</span>
+                    <span class="skill-tag">Stereo Vision</span>
+                    <span class="skill-tag">Bundle Adjustment</span>
+                    <span class="skill-tag">Camera Calibration</span>
+                    <span class="skill-tag">Optical Flow</span>
+                    <span class="skill-tag">Depth Estimation</span>
+                </div>
+            </div>
+            <div class="skill-group reveal">
+                <div class="skill-group-title"><span class="icon">🧊</span> 3D Processing</div>
+                <div class="skill-tags">
+                    <span class="skill-tag">Point Cloud Processing</span>
+                    <span class="skill-tag">Mesh Generation</span>
+                    <span class="skill-tag">Surface Reconstruction</span>
+                    <span class="skill-tag">Registration</span>
+                    <span class="skill-tag">Real-time Fusion</span>
+                    <span class="skill-tag">Spatial Data Structures</span>
+                    <span class="skill-tag">Next-best-view Planning</span>
+                </div>
+            </div>
+            <div class="skill-group reveal">
+                <div class="skill-group-title"><span class="icon">🔧</span> GPU & Parallel Computing</div>
+                <div class="skill-tags">
+                    <span class="skill-tag highlight">CUDA Optimization</span>
+                    <span class="skill-tag">OpenCL</span>
+                    <span class="skill-tag">Vulkan Compute</span>
+                    <span class="skill-tag">Metal</span>
+                    <span class="skill-tag">CUB / Thrust</span>
+                    <span class="skill-tag">OpenMP</span>
+                    <span class="skill-tag">TBB</span>
+                    <span class="skill-tag">MPI</span>
+                </div>
+            </div>
+            <div class="skill-group reveal">
+                <div class="skill-group-title"><span class="icon">📐</span> Math & Algorithms</div>
+                <div class="skill-tags">
+                    <span class="skill-tag">Optimization Algorithms</span>
+                    <span class="skill-tag">Computational Geometry</span>
+                    <span class="skill-tag">Linear Algebra</span>
+                    <span class="skill-tag">Numerical Methods</span>
+                    <span class="skill-tag">Statistics</span>
+                    <span class="skill-tag">Mathematical Modeling</span>
+                </div>
+            </div>
+            <div class="skill-group reveal">
+                <div class="skill-group-title"><span class="icon">🛠</span> Tools & Platforms</div>
+                <div class="skill-tags">
+                    <span class="skill-tag">OpenCV</span>
+                    <span class="skill-tag">PCL</span>
+                    <span class="skill-tag">Open3D</span>
+                    <span class="skill-tag">CGAL</span>
+                    <span class="skill-tag">Colmap</span>
+                    <span class="skill-tag">ROS</span>
+                    <span class="skill-tag">Eigen</span>
+                    <span class="skill-tag">Ceres</span>
+                    <span class="skill-tag">Git</span>
+                    <span class="skill-tag">CMake</span>
+                    <span class="skill-tag">Docker</span>
+                    <span class="skill-tag">Jenkins</span>
+                    <span class="skill-tag">Linux / Windows</span>
+                    <span class="skill-tag">Nvidia Jetson</span>
+                    <span class="skill-tag">Qt</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Publications Section -->
+<section id="publications">
+    <div class="container">
+        <div class="reveal">
+            <div class="section-label">Research</div>
+            <h2 class="section-title">Publications & Patents</h2>
+        </div>
+        <div class="pub-list">
+
+            <div class="pub-item reveal">
+                <span class="pub-type patent">Patent</span>
+                <a href="https://patents.google.com/patent/US10360718B2" target="_blank">
+                    <div class="pub-title">Method and apparatus for constructing three dimensional model of object</div>
+                    <div class="pub-venue">US10360718B2</div>
+                </a>
+                <div class="pub-year">2016</div>
+            </div>
+
+            <div class="pub-item reveal">
+                <span class="pub-type paper">Paper</span>
+                <a href="https://doi.org/10.1109/CVPRW.2016.116" target="_blank">
+                    <div class="pub-title">3DCapture: 3D Reconstruction for a Smartphone</div>
+                    <div class="pub-venue">IEEE CVPR Workshop 2016</div>
+                </a>
+                <div class="pub-year">2016</div>
+            </div>
+
+            <div class="pub-item reveal">
+                <span class="pub-type paper">Paper</span>
+                <a href="https://doi.org/10.2352/ISSN.2470-1173.2016.15.IPAS-186" target="_blank">
+                    <div class="pub-title">Spatio-temporal video background inpainting</div>
+                    <div class="pub-venue">Electronic Imaging, Society for Imaging Science and Technology</div>
+                </a>
+                <div class="pub-year">2016</div>
+            </div>
+
+            <div class="pub-item reveal">
+                <span class="pub-type patent">Patent</span>
+                <a href="https://patents.google.com/patent/RU2642167C2/en" target="_blank">
+                    <div class="pub-title">Device, method and system for reconstructing a 3D model of an object</div>
+                    <div class="pub-venue">RU2642167C2</div>
+                </a>
+                <div class="pub-year">2015</div>
+            </div>
+
+            <div class="pub-item reveal">
+                <span class="pub-type paper">Paper</span>
+                <a href="https://doi.org/10.1109/CDC.2014.7039372" target="_blank">
+                    <div class="pub-title">State estimation strategy without jump detection for hybrid systems using gluing function</div>
+                    <div class="pub-venue">53rd IEEE Conference on Decision and Control</div>
+                </a>
+                <div class="pub-year">2014</div>
+            </div>
+
+            <div class="pub-item reveal">
+                <span class="pub-type patent">Patent</span>
+                <a href="https://patents.google.com/patent/RU2576490C1/en" target="_blank">
+                    <div class="pub-title">Background hybrid retouch method for 2D to 3D conversion</div>
+                    <div class="pub-venue">RU2576490C1</div>
+                </a>
+                <div class="pub-year">2014</div>
+            </div>
+
+            <div class="pub-item reveal">
+                <span class="pub-type paper">Paper</span>
+                <a href="https://doi.org/10.1117/12.953827" target="_blank">
+                    <div class="pub-title">The new test pattern selection method for OPC model calibration</div>
+                    <div class="pub-venue">SPIE Photomask Technology 2012</div>
+                </a>
+                <div class="pub-year">2012</div>
+            </div>
+
+            <div class="pub-item reveal">
+                <span class="pub-type patent">Patent</span>
+                <a href="https://patents.google.com/patent/US8677288B2" target="_blank">
+                    <div class="pub-title">Test pattern selection method for OPC model calibration</div>
+                    <div class="pub-venue">US8677288B2</div>
+                </a>
+                <div class="pub-year">2012</div>
+            </div>
+
+            <div class="pub-item reveal">
+                <span class="pub-type paper">Paper</span>
+                <a href="https://doi.org/10.1117/12.916528" target="_blank">
+                    <div class="pub-title">Computational process optimization of array edges</div>
+                    <div class="pub-venue">SPIE Optical Microlithography XXV</div>
+                </a>
+                <div class="pub-year">2012</div>
+            </div>
+
+            <div class="pub-item reveal">
+                <span class="pub-type patent">Patent</span>
+                <a href="https://patents.google.com/patent/US8614034B2" target="_blank">
+                    <div class="pub-title">Method of manufacturing photo-mask</div>
+                    <div class="pub-venue">US8614034B2</div>
+                </a>
+                <div class="pub-year">2012</div>
+            </div>
+
+            <div class="pub-item reveal">
+                <span class="pub-type paper">Paper</span>
+                <a href="https://doi.org/10.1117/12.879592" target="_blank">
+                    <div class="pub-title">Fine calibration of physical resist models for accurate modeling at advanced lithographic nodes</div>
+                    <div class="pub-venue">SPIE Optical Microlithography XXIV</div>
+                </a>
+                <div class="pub-year">2011</div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Education Section -->
+<section id="education">
+    <div class="container">
+        <div class="reveal">
+            <div class="section-label">Education</div>
+            <h2 class="section-title">Academic Background</h2>
+        </div>
+        <div class="edu-grid">
+            <div class="edu-card reveal">
+                <div class="edu-degree">M.Sc. Electrical Engineering & Computer Science</div>
+                <div class="edu-school">Seoul National University</div>
+                <div class="edu-field">Control and Dynamics Systems Lab</div>
+                <div class="edu-meta">
+                    <span>2007 — 2009 · Seoul, South Korea</span>
+                    <span class="edu-gpa">GPA: 96.8 / 100</span>
+                </div>
+            </div>
+            <div class="edu-card reveal">
+                <div class="edu-degree">M.Sc. Mathematics & Mechanics</div>
+                <div class="edu-school">Saint-Petersburg State University</div>
+                <div class="edu-field">Mathematical Analysis and Theory of Functions</div>
+                <div class="edu-meta">
+                    <span>2002 — 2007 · Saint-Petersburg, Russia</span>
+                    <span class="edu-gpa">GPA: 97.5 / 100</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="contact-section">
+    <div class="container">
+        <div class="reveal">
+            <h2>Let's <span class="gradient-text">Connect</span></h2>
+            <p>Open to opportunities in computer vision, real-time systems, and GPU-accelerated computing. Based in Luxembourg, EU citizen.</p>
+            <div class="contact-links">
+                <a href="mailto:artem.shamsuarov@gmail.com" class="btn btn-primary">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                    artem.shamsuarov@gmail.com
+                </a>
+                <a href="https://github.com/Artemarius" target="_blank" class="btn btn-secondary">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+                    GitHub
+                </a>
+                <a href="tel:+352691380581" class="btn btn-secondary">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    +352 691 380 581
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+</main>
+
+<footer>
+    <div class="container">
+        <p>© 2026 Artem Shamsuarov. Built with purpose.</p>
+    </div>
+</footer>
+
+<script>
+// Scroll reveal animation
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Navbar background on scroll
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+        navbar.style.borderBottomColor = 'var(--border)';
+    } else {
+        navbar.style.borderBottomColor = 'transparent';
+    }
+});
+</script>
+
+</body>
+</html>
