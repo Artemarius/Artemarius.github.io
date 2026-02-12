@@ -501,6 +501,99 @@
             background: var(--accent-dim);
         }
 
+        /* Projects section */
+        .projects-subtitle {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-top: -2rem;
+            margin-bottom: 3rem;
+            max-width: 600px;
+        }
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 1.25rem;
+        }
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.75rem;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .project-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-3px);
+        }
+        .project-card-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 0.75rem;
+        }
+        .project-card-header svg {
+            flex-shrink: 0;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+        .project-name {
+            font-family: var(--font-mono);
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .project-desc {
+            color: var(--text-secondary);
+            font-size: 0.88rem;
+            line-height: 1.7;
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+        .project-highlights {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 1.25rem;
+        }
+        .project-highlight {
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            color: var(--accent);
+            letter-spacing: 0.03em;
+        }
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-bottom: 1.25rem;
+        }
+        .project-tag {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            padding: 0.25rem 0.6rem;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            color: var(--text-secondary);
+        }
+        .project-link {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: color 0.2s;
+            margin-top: auto;
+        }
+        .project-link:hover {
+            color: var(--accent);
+        }
+
         /* Publications section */
         .pub-list {
             display: flex;
@@ -733,6 +826,9 @@
             .skills-grid {
                 grid-template-columns: 1fr;
             }
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
             .edu-grid {
                 grid-template-columns: 1fr;
             }
@@ -755,6 +851,7 @@
         <ul class="nav-links">
             <li><a href="#experience">Experience</a></li>
             <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
             <li><a href="#publications">Publications</a></li>
             <li><a href="#education">Education</a></li>
             <li><a href="#contact">Contact</a></li>
@@ -988,6 +1085,92 @@
                     <span class="skill-tag">Qt</span>
                 </div>
             </div>
+        </div>
+    </div>
+</section>
+
+<!-- Projects Section -->
+<section id="projects">
+    <div class="container">
+        <div class="reveal">
+            <div class="section-label">Pet Projects</div>
+            <h2 class="section-title">Personal Explorations</h2>
+            <p class="projects-subtitle">Side projects built from scratch to explore areas outside my day job — quantitative finance, GPU computing, and neural rendering.</p>
+        </div>
+        <div class="projects-grid">
+
+            <div class="project-card reveal">
+                <div class="project-card-header">
+                    <div class="project-name">cuda-gaussian-splatting</div>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                </div>
+                <p class="project-desc">From-scratch implementation of 3D Gaussian Splatting in C++23/CUDA. Custom differentiable tile-based rasterizer with analytic gradients, fused Adam optimizer as a single CUDA kernel, MCMC densification, and a real-time OpenGL viewer.</p>
+                <div class="project-highlights">
+                    <span class="project-highlight">Differentiable rasterizer</span>
+                    <span class="project-highlight">Fused CUDA optimizer</span>
+                    <span class="project-highlight">Real-time viewer</span>
+                </div>
+                <div class="project-tags">
+                    <span class="project-tag">C++23</span>
+                    <span class="project-tag">CUDA</span>
+                    <span class="project-tag">OpenGL</span>
+                    <span class="project-tag">libtorch</span>
+                    <span class="project-tag">Eigen</span>
+                </div>
+                <a href="https://github.com/Artemarius/cuda-gaussian-splatting" target="_blank" class="project-link">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+                    View on GitHub
+                </a>
+            </div>
+
+            <div class="project-card reveal">
+                <div class="project-card-header">
+                    <div class="project-name">hft-orderbook-engine</div>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                </div>
+                <p class="project-desc">Low-latency limit order book and matching engine with lock-free SPSC ring buffers, zero-allocation hot path, slab allocator, and market microstructure analytics (spread, microprice, order flow imbalance, Kyle's Lambda).</p>
+                <div class="project-highlights">
+                    <span class="project-highlight">~124 ns median add</span>
+                    <span class="project-highlight">6M msgs/s throughput</span>
+                    <span class="project-highlight">322 unit tests</span>
+                </div>
+                <div class="project-tags">
+                    <span class="project-tag">C++17</span>
+                    <span class="project-tag">Lock-free</span>
+                    <span class="project-tag">SPSC</span>
+                    <span class="project-tag">Zero-alloc</span>
+                    <span class="project-tag">Microstructure</span>
+                </div>
+                <a href="https://github.com/Artemarius/hft-orderbook-engine" target="_blank" class="project-link">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+                    View on GitHub
+                </a>
+            </div>
+
+            <div class="project-card reveal">
+                <div class="project-card-header">
+                    <div class="project-name">cuda-portfolio-optimizer</div>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>
+                </div>
+                <p class="project-desc">GPU-accelerated portfolio optimization with Monte Carlo scenario generation (cuRAND + Cholesky), Mean-CVaR via custom ADMM solver, PCA factor model (15.6x speedup), and rolling-window backtesting with transaction costs.</p>
+                <div class="project-highlights">
+                    <span class="project-highlight">12.5x GPU speedup</span>
+                    <span class="project-highlight">PCA factor model</span>
+                    <span class="project-highlight">4-strategy backtest</span>
+                </div>
+                <div class="project-tags">
+                    <span class="project-tag">C++17</span>
+                    <span class="project-tag">CUDA</span>
+                    <span class="project-tag">cuRAND</span>
+                    <span class="project-tag">ADMM</span>
+                    <span class="project-tag">Mean-CVaR</span>
+                </div>
+                <a href="https://github.com/Artemarius/cuda-portfolio-optimizer" target="_blank" class="project-link">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+                    View on GitHub
+                </a>
+            </div>
+
         </div>
     </div>
 </section>
