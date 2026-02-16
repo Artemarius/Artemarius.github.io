@@ -593,6 +593,20 @@
         .project-link:hover {
             color: var(--accent);
         }
+        .project-category {
+            grid-column: 1 / -1;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+            margin-top: 1.5rem;
+        }
+        .project-category:first-child {
+            margin-top: 0;
+        }
 
         /* Publications section */
         .pub-list {
@@ -1095,9 +1109,12 @@
         <div class="reveal">
             <div class="section-label">Pet Projects</div>
             <h2 class="section-title">Personal Explorations</h2>
-            <p class="projects-subtitle">Side projects built from scratch to explore areas outside my day job — quantitative finance, GPU computing, and neural rendering.</p>
+            <p class="projects-subtitle">Side projects spanning computer vision, quantitative finance, and creative tools — built from scratch to explore what interests me.</p>
         </div>
         <div class="projects-grid">
+
+            <!-- Computer Vision & 3D -->
+            <div class="project-category reveal">Computer Vision & 3D</div>
 
             <div class="project-card reveal">
                 <div class="project-card-header">
@@ -1122,6 +1139,56 @@
                     View on GitHub
                 </a>
             </div>
+
+            <div class="project-card reveal">
+                <div class="project-card-header">
+                    <div class="project-name">OnyxVO</div>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+                </div>
+                <p class="project-desc">Real-time visual odometry on Android. XFeat learned features via ONNX Runtime, Vulkan compute descriptor matching through Kompute, ARM NEON SIMD preprocessing, and 5-point RANSAC pose estimation with keyframe management.</p>
+                <div class="project-highlights">
+                    <span class="project-highlight">~12.5 FPS on Galaxy S21</span>
+                    <span class="project-highlight">0.3 ms NEON preprocess</span>
+                    <span class="project-highlight">Vulkan compute matching</span>
+                </div>
+                <div class="project-tags">
+                    <span class="project-tag">C++</span>
+                    <span class="project-tag">Vulkan</span>
+                    <span class="project-tag">ONNX Runtime</span>
+                    <span class="project-tag">ARM NEON</span>
+                    <span class="project-tag">Kotlin</span>
+                </div>
+                <a href="https://github.com/Artemarius/OnyxVO" target="_blank" class="project-link">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+                    View on GitHub
+                </a>
+            </div>
+
+            <div class="project-card reveal">
+                <div class="project-card-header">
+                    <div class="project-name">DocShot</div>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                </div>
+                <p class="project-desc">Zero-tap document scanner for Android. Auto-detects document boundaries, captures on stability, corrects perspective with sub-pixel corner refinement. Classical CV pipeline with multi-strategy preprocessing — no ML, no cloud.</p>
+                <div class="project-highlights">
+                    <span class="project-highlight">~15 ms detection/frame</span>
+                    <span class="project-highlight">~120 ms full pipeline</span>
+                    <span class="project-highlight">74 tests</span>
+                </div>
+                <div class="project-tags">
+                    <span class="project-tag">Kotlin</span>
+                    <span class="project-tag">Jetpack Compose</span>
+                    <span class="project-tag">OpenCV</span>
+                    <span class="project-tag">CameraX</span>
+                </div>
+                <a href="https://github.com/Artemarius/DocShot" target="_blank" class="project-link">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+                    View on GitHub
+                </a>
+            </div>
+
+            <!-- Quantitative Finance -->
+            <div class="project-category reveal">Quantitative Finance</div>
 
             <div class="project-card reveal">
                 <div class="project-card-header">
@@ -1166,6 +1233,55 @@
                     <span class="project-tag">Mean-CVaR</span>
                 </div>
                 <a href="https://github.com/Artemarius/cuda-portfolio-optimizer" target="_blank" class="project-link">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+                    View on GitHub
+                </a>
+            </div>
+
+            <!-- Audio & Music -->
+            <div class="project-category reveal">Audio & Music</div>
+
+            <div class="project-card reveal">
+                <div class="project-card-header">
+                    <div class="project-name">PickHero</div>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+                </div>
+                <p class="project-desc">Desktop guitar practice app — load any Guitar Pro tab (GP3–GP8), plug in via USB, and get real-time pitch detection with hit/miss feedback and scrolling tab playback. A lightweight, free Yousician alternative.</p>
+                <div class="project-highlights">
+                    <span class="project-highlight">Real-time YIN pitch detection</span>
+                    <span class="project-highlight">GP3–GP8 tab support</span>
+                    <span class="project-highlight">MIDI backing tracks</span>
+                </div>
+                <div class="project-tags">
+                    <span class="project-tag">Python</span>
+                    <span class="project-tag">aubio</span>
+                    <span class="project-tag">PyGuitarPro</span>
+                    <span class="project-tag">PyGame</span>
+                </div>
+                <a href="https://github.com/Artemarius/PickHero" target="_blank" class="project-link">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+                    View on GitHub
+                </a>
+            </div>
+
+            <div class="project-card reveal">
+                <div class="project-card-header">
+                    <div class="project-name">VocalForge</div>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+                </div>
+                <p class="project-desc">Desktop app for recording vocals over music tracks. Automatic vocal separation via Demucs, cross-correlation alignment of recording to backing track, LUFS normalization (ITU-R BS.1770-4), and one-click export of the final mix.</p>
+                <div class="project-highlights">
+                    <span class="project-highlight">Demucs vocal separation</span>
+                    <span class="project-highlight">Auto-alignment (xcorr)</span>
+                    <span class="project-highlight">LUFS normalization</span>
+                </div>
+                <div class="project-tags">
+                    <span class="project-tag">Python</span>
+                    <span class="project-tag">PySide6</span>
+                    <span class="project-tag">Demucs</span>
+                    <span class="project-tag">PyTorch</span>
+                </div>
+                <a href="https://github.com/Artemarius/VocalForge" target="_blank" class="project-link">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
                     View on GitHub
                 </a>
