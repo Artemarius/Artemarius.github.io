@@ -941,10 +941,10 @@
                 </div>
                 <div class="timeline-body">
                     <ul>
-                        <li>Developed production-ready CV algorithms for multi-camera 3D scanning systems</li>
-                        <li>Implemented real-time image processing pipelines handling large-scale visual datasets from structured light, laser, lidar, and RGB scanners</li>
-                        <li>Achieved 10–100× performance improvements through CUDA optimization</li>
-                        <li>Designed real-time tracking and fusion algorithms, automated defect detection, and quality control systems</li>
+                        <li>Developed production-grade C++ algorithms for industrial hardware products</li>
+                        <li>Implemented real-time image processing pipelines for multi-sensor systems</li>
+                        <li>Achieved 10–100x performance improvements through GPU (CUDA) optimization</li>
+                        <li>Designed automated quality control and inspection systems</li>
                         <li>Maintained CI/CD pipelines (Jenkins) and mentored junior engineers</li>
                     </ul>
                 </div>
@@ -959,11 +959,11 @@
                 </div>
                 <div class="timeline-body">
                     <ul>
-                        <li>Built real-time fusion algorithms for mobile 3D scanner with onboard processing</li>
-                        <li>Implemented 3D reconstruction and SLAM algorithms for production scanning systems</li>
+                        <li>Built real-time algorithms for embedded hardware with onboard processing</li>
+                        <li>Implemented geometry processing and spatial computing algorithms for production systems</li>
                         <li>Achieved 70% latency reduction through CUDA/OpenCL/Vulkan optimization</li>
-                        <li>Designed next-best-view planning system and software architecture for distributed computing clusters</li>
-                        <li>Built multi-platform apps (iOS/Swift/ObjC, Windows/C++) for industrial vision</li>
+                        <li>Designed software architecture for distributed computing clusters</li>
+                        <li>Built multi-platform apps (iOS/Swift/ObjC, Windows/C++) for industrial products</li>
                     </ul>
                 </div>
             </div>
@@ -1109,86 +1109,12 @@
         <div class="reveal">
             <div class="section-label">Pet Projects</div>
             <h2 class="section-title">Personal Explorations</h2>
-            <p class="projects-subtitle">Side projects spanning computer vision, quantitative finance, and creative tools — built from scratch to explore what interests me.</p>
+            <p class="projects-subtitle">Independent explorations built from scratch on personal time and hardware, unrelated to any employer's products or proprietary technology. Spanning quantitative finance, audio tools, and mobile apps.</p>
         </div>
         <div class="projects-grid">
 
-            <!-- Computer Vision & 3D -->
-            <div class="project-category reveal">Computer Vision & 3D</div>
-
-            <div class="project-card reveal">
-                <div class="project-card-header">
-                    <div class="project-name">cuda-gaussian-splatting</div>
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
-                </div>
-                <p class="project-desc">From-scratch implementation of 3D Gaussian Splatting in C++23/CUDA. Custom differentiable tile-based rasterizer with analytic gradients, fused Adam optimizer as a single CUDA kernel, MCMC densification, and a real-time OpenGL viewer.</p>
-                <div class="project-highlights">
-                    <span class="project-highlight">Differentiable rasterizer</span>
-                    <span class="project-highlight">Fused CUDA optimizer</span>
-                    <span class="project-highlight">Real-time viewer</span>
-                </div>
-                <div class="project-tags">
-                    <span class="project-tag">C++23</span>
-                    <span class="project-tag">CUDA</span>
-                    <span class="project-tag">OpenGL</span>
-                    <span class="project-tag">libtorch</span>
-                    <span class="project-tag">Eigen</span>
-                </div>
-                <a href="https://github.com/Artemarius/cuda-gaussian-splatting" target="_blank" class="project-link">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
-                    View on GitHub
-                </a>
-            </div>
-
-            <div class="project-card reveal">
-                <div class="project-card-header">
-                    <div class="project-name">OnyxVO</div>
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
-                </div>
-                <p class="project-desc">Real-time visual odometry on Android. XFeat learned features via ONNX Runtime, Vulkan compute descriptor matching through Kompute, ARM NEON SIMD preprocessing, and 5-point RANSAC pose estimation with keyframe management.</p>
-                <div class="project-highlights">
-                    <span class="project-highlight">~12.5 FPS on Galaxy S21</span>
-                    <span class="project-highlight">0.3 ms NEON preprocess</span>
-                    <span class="project-highlight">Vulkan compute matching</span>
-                </div>
-                <div class="project-tags">
-                    <span class="project-tag">C++</span>
-                    <span class="project-tag">Vulkan</span>
-                    <span class="project-tag">ONNX Runtime</span>
-                    <span class="project-tag">ARM NEON</span>
-                    <span class="project-tag">Kotlin</span>
-                </div>
-                <a href="https://github.com/Artemarius/OnyxVO" target="_blank" class="project-link">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
-                    View on GitHub
-                </a>
-            </div>
-
-            <div class="project-card reveal">
-                <div class="project-card-header">
-                    <div class="project-name">DocShot</div>
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-                </div>
-                <p class="project-desc">Zero-tap document scanner for Android. Auto-detects document boundaries, captures on stability, corrects perspective with sub-pixel corner refinement. Classical CV pipeline with multi-strategy preprocessing — no ML, no cloud.</p>
-                <div class="project-highlights">
-                    <span class="project-highlight">~15 ms detection/frame</span>
-                    <span class="project-highlight">~120 ms full pipeline</span>
-                    <span class="project-highlight">74 tests</span>
-                </div>
-                <div class="project-tags">
-                    <span class="project-tag">Kotlin</span>
-                    <span class="project-tag">Jetpack Compose</span>
-                    <span class="project-tag">OpenCV</span>
-                    <span class="project-tag">CameraX</span>
-                </div>
-                <a href="https://github.com/Artemarius/DocShot" target="_blank" class="project-link">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
-                    View on GitHub
-                </a>
-            </div>
-
-            <!-- Quantitative Finance -->
-            <div class="project-category reveal">Quantitative Finance</div>
+            <!-- Quantitative Finance & GPU Computing -->
+            <div class="project-category reveal">Quantitative Finance & GPU Computing</div>
 
             <div class="project-card reveal">
                 <div class="project-card-header">
@@ -1287,8 +1213,31 @@
                 </a>
             </div>
 
-            <!-- Theater & Stage -->
-            <div class="project-category reveal">Theater & Stage</div>
+            <!-- Mobile & Desktop Apps -->
+            <div class="project-category reveal">Mobile & Desktop Apps</div>
+
+            <div class="project-card reveal">
+                <div class="project-card-header">
+                    <div class="project-name">DocShot</div>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                </div>
+                <p class="project-desc">Zero-tap document scanner for Android. Auto-detects document boundaries, captures on stability, corrects perspective with sub-pixel corner refinement. Classical image processing pipeline with multi-strategy preprocessing — no ML, no cloud.</p>
+                <div class="project-highlights">
+                    <span class="project-highlight">~15 ms detection/frame</span>
+                    <span class="project-highlight">~120 ms full pipeline</span>
+                    <span class="project-highlight">74 tests</span>
+                </div>
+                <div class="project-tags">
+                    <span class="project-tag">Kotlin</span>
+                    <span class="project-tag">Jetpack Compose</span>
+                    <span class="project-tag">OpenCV</span>
+                    <span class="project-tag">CameraX</span>
+                </div>
+                <a href="https://github.com/Artemarius/DocShot" target="_blank" class="project-link">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+                    View on GitHub
+                </a>
+            </div>
 
             <div class="project-card reveal">
                 <div class="project-card-header">
@@ -1465,7 +1414,7 @@
     <div class="container">
         <div class="reveal">
             <h2>Let's <span class="gradient-text">Connect</span></h2>
-            <p>Open to opportunities in computer vision, real-time systems, and GPU-accelerated computing. Based in Luxembourg, EU citizen.</p>
+            <p>Passionate about computer vision, real-time systems, and GPU-accelerated computing. Based in Luxembourg.</p>
             <div class="contact-links">
                 <a href="mailto:artem.shamsuarov@gmail.com" class="btn btn-primary">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
