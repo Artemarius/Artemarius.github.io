@@ -741,6 +741,12 @@
             flex-wrap: wrap;
         }
 
+        .linkedin-badge-wrapper {
+            margin-top: 2.5rem;
+            display: flex;
+            justify-content: center;
+        }
+
         /* Footer */
         footer {
             border-top: 1px solid var(--border);
@@ -1480,6 +1486,9 @@
                     +352 691 380 581
                 </a>
             </div>
+            <div class="linkedin-badge-wrapper">
+                <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="dark" data-type="VERTICAL" data-vanity="artemarius" data-version="v1"><a class="badge-base__link LI-simple-link" href="https://lu.linkedin.com/in/artemarius?trk=profile-badge">Artem Shamsuarov</a></div>
+            </div>
         </div>
     </div>
 </section>
@@ -1514,6 +1523,7 @@ window.addEventListener('scroll', () => {
     }
 });
 </script>
+<script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
 
 </body>
 </html>
