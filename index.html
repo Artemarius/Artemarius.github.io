@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Artem Shamsuarov — Computer Vision & Real-Time Systems Engineer</title>
-    <meta name="description" content="Research and Software Development Engineer with 15+ years in C++/CUDA, computer vision, 3D reconstruction, and real-time image processing.">
+    <meta name="description" content="Research and Software Development Engineer with 15+ years in C++/CUDA, computer vision, 3D reconstruction, SLAM and visual-inertial odometry, Gaussian splatting, and real-time image processing on GPUs and phones.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -294,6 +294,9 @@
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
+        }
+        .hero-actions .btn {
+            padding: 0.85rem 1.4rem;
         }
         .btn-primary {
             background: var(--accent);
@@ -634,6 +637,145 @@
             margin-top: 0;
         }
 
+        /* Featured work */
+        .features {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        .feature {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.25rem;
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.3s ease;
+        }
+        .feature:hover {
+            border-color: var(--border-hover);
+        }
+        .feature::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 2px;
+            background: var(--gradient-accent);
+        }
+        .feature-media {
+            display: grid;
+            gap: 0.75rem;
+            /* columns are set per card so the phone clip matches the 16:9 clip's height */
+        }
+        .feature-media.vio { grid-template-columns: minmax(0, 16fr) minmax(0, 4.945fr); }
+        .feature-media.splat { grid-template-columns: minmax(0, 16fr) minmax(0, 4.154fr); }
+        .feature-media video {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+        }
+        .feature-media .clip-main { aspect-ratio: 16 / 9; }
+        .feature-caption {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            color: var(--text-secondary);
+            opacity: 0.75;
+            line-height: 1.6;
+            margin-top: 0.6rem;
+            padding: 0 0.25rem;
+        }
+        .feature-body {
+            display: grid;
+            grid-template-columns: 1.3fr 1fr;
+            gap: 2.25rem;
+            padding: 1.5rem 0.75rem 0.75rem;
+        }
+        .feature-kicker {
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 0.4rem;
+        }
+        .feature-name {
+            font-size: 1.9rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            margin-bottom: 0.9rem;
+        }
+        .feature-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.75;
+            margin-bottom: 1.25rem;
+        }
+        .feature-note {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            line-height: 1.65;
+            border-left: 2px solid var(--border-hover);
+            padding-left: 0.9rem;
+            margin-bottom: 1.25rem;
+        }
+        .feature-note strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        .feature-metrics {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            align-content: start;
+        }
+        .metric {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1rem 1.1rem;
+        }
+        .metric-value {
+            font-family: var(--font-mono);
+            font-size: 1.45rem;
+            font-weight: 700;
+            line-height: 1.2;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.35rem;
+        }
+        .metric-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        .metric-src {
+            display: block;
+            font-family: var(--font-mono);
+            font-size: 0.62rem;
+            color: var(--text-secondary);
+            opacity: 0.7;
+            margin-top: 0.35rem;
+        }
+        .feature-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+        .feature-links .btn {
+            padding: 0.6rem 0.9rem;
+            font-size: 0.72rem;
+        }
+        .feature .project-tags {
+            margin-bottom: 1.25rem;
+        }
+
         /* Publications section */
         .pub-list {
             display: flex;
@@ -833,6 +975,10 @@
             .pub-year {
                 order: -1;
             }
+            .feature-body {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
         }
 
         @media (max-width: 640px) {
@@ -878,6 +1024,35 @@
             .edu-grid {
                 grid-template-columns: 1fr;
             }
+            .feature {
+                padding: 0.75rem;
+            }
+            /* phone clip is hidden (and never fetched) on small screens */
+            .feature-media.vio, .feature-media.splat {
+                grid-template-columns: 1fr;
+            }
+            .feature-media .clip-phone,
+            .feature-caption .cap-phone {
+                display: none;
+            }
+            .feature-body {
+                padding: 1.25rem 0.25rem 0.5rem;
+            }
+            .feature-name {
+                font-size: 1.6rem;
+            }
+            .feature-metrics {
+                gap: 0.5rem;
+            }
+            .metric {
+                padding: 0.8rem 0.75rem;
+            }
+            .metric-value {
+                font-size: 1.15rem;
+            }
+            .metric-label {
+                font-size: 0.74rem;
+            }
         }
     </style>
 </head>
@@ -895,6 +1070,7 @@
             <span></span><span></span><span></span>
         </button>
         <ul class="nav-links">
+            <li><a href="#featured">Featured</a></li>
             <li><a href="#experience">Experience</a></li>
             <li><a href="#skills">Skills</a></li>
             <li><a href="#projects">Projects</a></li>
@@ -918,12 +1094,17 @@
                     <span class="gradient-text">Shamsuarov</span>
                 </h1>
                 <p class="subtitle">
-                    15+ years building production-grade computer vision systems. 
-                    Specialized in real-time 3D reconstruction, multi-camera pipelines, 
+                    15+ years building production-grade computer vision systems.
+                    Specialized in real-time 3D reconstruction, multi-camera pipelines,
                     SLAM, and GPU-accelerated processing. Published researcher with 7+ patents.
+                    Most recently: visual-inertial odometry and Gaussian splatting running live on a phone.
                 </p>
                 <div class="hero-actions">
-                    <a href="#contact" class="btn btn-primary">
+                    <a href="#featured" class="btn btn-primary">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+                        Featured Work
+                    </a>
+                    <a href="#contact" class="btn btn-secondary">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
                         Get in Touch
                     </a>
@@ -951,6 +1132,155 @@
                     <div class="stat-label">Master's Degrees</div>
                 </div>
             </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Work Section -->
+<section id="featured">
+    <div class="container">
+        <div class="reveal">
+            <div class="section-label">Featured Work</div>
+            <h2 class="section-title">Real-time 3D on a phone</h2>
+            <p class="projects-subtitle">Two independent projects, built from scratch on personal time and hardware and unrelated to any employer's products or proprietary technology. Both are written in C++20 with Vulkan 1.3 compute, run live on Android, and are measured on the device: each number below comes from a written-up protocol or a committed CSV.</p>
+        </div>
+
+        <div class="features">
+
+            <!-- pocketvio -->
+            <article class="feature reveal">
+                <div class="feature-media vio">
+                    <video class="clip-main" data-autoplay muted loop playsinline preload="none" poster="media/pocketvio-stairs.jpg" aria-label="Stairs loop: camera frames with feature tracks, the estimated trajectory and the triangulated map coloured by height">
+                        <source src="media/pocketvio-stairs.mp4" type="video/mp4">
+                    </video>
+                    <video class="clip-phone" data-autoplay muted loop playsinline preload="none" poster="media/pocketvio-phone.jpg" aria-label="Screen recording of the pocketvio run screen on the phone">
+                        <source src="media/pocketvio-phone.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="feature-caption">
+                    A Galaxy S24 Ultra carried up two floors of a stairwell and back down. Desktop replay of the phone's own recording, 4× speed.<span class="cap-phone"> Right: the app's run screen on the phone.</span>
+                </div>
+                <div class="feature-body">
+                    <div>
+                        <div class="feature-kicker">Visual-inertial odometry · v1.0.0</div>
+                        <h3 class="feature-name">pocketvio</h3>
+                        <p class="feature-desc">Real-time visual-inertial odometry on Android: a multi-state constraint Kalman filter (MSCKF) in C++20 with a Vulkan compute front-end, running live on the phone. IMU-first, from raw 475 Hz streams with noise from Allan variance and an on-device calibration wizard. Deterministic: the phone records its own input, and its desktop replay is bit-identical run to run.</p>
+                        <p class="feature-note"><strong>Where it loses:</strong> on walked room loops ARCore ends 0.004 m from the tags against pocketvio's 0.116 m. ARCore relocalises; pocketvio is odometry only, with no loop closure. All errors are measured against AprilTags seen by the phone's own camera. Measured on the Galaxy S24 Ultra and S25 Ultra.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">C++20</span>
+                            <span class="project-tag">Eigen</span>
+                            <span class="project-tag">Vulkan 1.3 compute</span>
+                            <span class="project-tag">MSCKF</span>
+                            <span class="project-tag">Android NDK</span>
+                            <span class="project-tag">Kotlin + Compose</span>
+                        </div>
+                        <div class="feature-links">
+                            <a href="https://github.com/Artemarius/pocketvio-app" target="_blank" rel="noopener" class="btn btn-primary">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+                                GitHub
+                            </a>
+                            <a href="https://github.com/Artemarius/pocketvio-app/releases/tag/v1.0.0" target="_blank" rel="noopener" class="btn btn-secondary">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                Release v1.0.0
+                            </a>
+                            <a href="https://github.com/Artemarius/pocketvio-app/releases/download/v1.0.0/pocketvio-1.0.0-deck.pdf" target="_blank" rel="noopener" class="btn btn-secondary">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                                Slides (PDF)
+                            </a>
+                            <a href="https://github.com/Artemarius/pocketvio-app/blob/main/docs/case-study-spin-runaway.md" target="_blank" rel="noopener" class="btn btn-secondary">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                                Case study
+                            </a>
+                        </div>
+                    </div>
+                    <div class="feature-metrics">
+                        <div class="metric">
+                            <div class="metric-value">0.29 m</div>
+                            <div class="metric-label">end error after a 43 m stairs loop, two floors up and down (0.68 % of the path)<span class="metric-src">S24 Ultra · Protocol 43 · S25 Ultra: 0.22 m</span></div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">0.048 m</div>
+                            <div class="metric-label">after fast hand spins of 10–17 rad/s; ARCore 0.459 m on the same runs<span class="metric-src">S24 Ultra · Protocol 37</span></div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">0.63 ms</div>
+                            <div class="metric-label">GPU front-end per 640×480 frame: pyramid, FAST-9 and KLT<span class="metric-src">Adreno 750 · Protocol 45 · 0.53 ms on Adreno 830</span></div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">1.2 ms</div>
+                            <div class="metric-label">filter arithmetic per frame on either phone; 3.7 ms median live<span class="metric-src">S24 Ultra live · Protocol 45</span></div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- PocketSplat -->
+            <article class="feature reveal">
+                <div class="feature-media splat">
+                    <video class="clip-main" data-autoplay muted loop playsinline preload="none" poster="media/pocketsplat-turntable.jpg" aria-label="A metal sculpture of a horned lizard on a stone slab, rendered as 3D Gaussian splats, swinging to each side">
+                        <source src="media/pocketsplat-turntable.mp4" type="video/mp4">
+                    </video>
+                    <video class="clip-phone" data-autoplay muted loop playsinline preload="none" poster="media/pocketsplat-phone.jpg" aria-label="Screen recording on a Galaxy S24 Ultra: orbiting the horned lizard scene, then a rusty car">
+                        <source src="media/pocketsplat-phone.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="feature-caption">
+                    hornedlizard, 786 K splats (nianticlabs/spz, MIT), drawn by the phone's renderer on the desktop host.<span class="cap-phone"> Right: screen recording on a Galaxy S24 Ultra; beetle scene from loopce/gaussiansplats (CC BY 4.0).</span>
+                </div>
+                <div class="feature-body">
+                    <div>
+                        <div class="feature-kicker">3D Gaussian Splatting · v0.3.0</div>
+                        <h3 class="feature-name">PocketSplat</h3>
+                        <p class="feature-desc">A native Vulkan 1.3 renderer for 3D Gaussian Splatting on Android, written from the papers for mobile GPUs: chunk cull, a compacting preprocess, an own radix sort with no inter-workgroup waits, and one indirect draw. A thermal controller trades image quality for heat. Measured like-for-like against the renderers people use: same phone, same splats, same pixels.</p>
+                        <p class="feature-note"><strong>Where it loses:</strong> at equal work on the S25 Ultra, PocketSplat still spends 9 % more energy per frame than SuperSplat on stump, and splatkit's sort is about 1.6× cheaper per key. Two Adreno phones measured; Mali and Xclipse are untested. Slower experiments are kept as written-up negative results.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">C++20</span>
+                            <span class="project-tag">Vulkan 1.3</span>
+                            <span class="project-tag">GLSL compute</span>
+                            <span class="project-tag">GPU radix sort</span>
+                            <span class="project-tag">Android NDK</span>
+                            <span class="project-tag">Kotlin + Compose</span>
+                        </div>
+                        <div class="feature-links">
+                            <a href="https://github.com/Artemarius/pocketsplat" target="_blank" rel="noopener" class="btn btn-primary">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+                                GitHub
+                            </a>
+                            <a href="https://github.com/Artemarius/pocketsplat/releases/tag/v0.3.0" target="_blank" rel="noopener" class="btn btn-secondary">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                Release v0.3.0
+                            </a>
+                            <a href="https://github.com/Artemarius/pocketsplat/releases/download/v0.3.0/pocketsplat-slides.pdf" target="_blank" rel="noopener" class="btn btn-secondary">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                                Slides (PDF)
+                            </a>
+                            <a href="https://github.com/Artemarius/pocketsplat/blob/main/docs/writeup.md" target="_blank" rel="noopener" class="btn btn-secondary">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                                Write-up
+                            </a>
+                        </div>
+                    </div>
+                    <div class="feature-metrics">
+                        <div class="metric">
+                            <div class="metric-value">92 fps</div>
+                            <div class="metric-label">on a 4.05 M-splat scene at 864×1872, cold; 34 fps when it first rendered<span class="metric-src">stump · S24 Ultra · 105 fps on S25 Ultra</span></div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">2.4 ns</div>
+                            <div class="metric-label">per key: GPU radix sort of 16-bit depth keys at 1 M keys<span class="metric-src">Adreno 750 · 4.3 ns with 32-bit keys</span></div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">20 min</div>
+                            <div class="metric-label">at 60 fps in thermal status 0, with 26 % less energy per frame than the fixed setting<span class="metric-src">stump · S24 Ultra, on battery</span></div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">95 vs 61</div>
+                            <div class="metric-label">fps against the SuperSplat viewer (WebGPU) on stump, same phone and splats<span class="metric-src">S24 Ultra · 540×975 · Chrome paces near 70 Hz</span></div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
         </div>
     </div>
 </section>
@@ -1050,6 +1380,7 @@
                     <span class="skill-tag highlight">C++ (Expert, 15+ yrs)</span>
                     <span class="skill-tag highlight">CUDA (Expert)</span>
                     <span class="skill-tag">Python</span>
+                    <span class="skill-tag">Kotlin</span>
                     <span class="skill-tag">C#</span>
                     <span class="skill-tag">MATLAB</span>
                     <span class="skill-tag">OOP & Design Patterns</span>
@@ -1065,6 +1396,9 @@
                     <span class="skill-tag highlight">Multi-camera Systems</span>
                     <span class="skill-tag highlight">3D Reconstruction</span>
                     <span class="skill-tag highlight">SLAM</span>
+                    <span class="skill-tag highlight">Visual-Inertial Odometry</span>
+                    <span class="skill-tag">Kalman Filtering (MSCKF / ESKF)</span>
+                    <span class="skill-tag">IMU Calibration</span>
                     <span class="skill-tag">Structure-from-Motion</span>
                     <span class="skill-tag">Feature Detection & Matching</span>
                     <span class="skill-tag">Object Detection</span>
@@ -1078,6 +1412,7 @@
             <div class="skill-group reveal">
                 <div class="skill-group-title"><span class="icon">🧊</span> 3D Processing</div>
                 <div class="skill-tags">
+                    <span class="skill-tag highlight">3D Gaussian Splatting</span>
                     <span class="skill-tag">Point Cloud Processing</span>
                     <span class="skill-tag">Mesh Generation</span>
                     <span class="skill-tag">Surface Reconstruction</span>
@@ -1092,7 +1427,8 @@
                 <div class="skill-tags">
                     <span class="skill-tag highlight">CUDA Optimization</span>
                     <span class="skill-tag">OpenCL</span>
-                    <span class="skill-tag">Vulkan Compute</span>
+                    <span class="skill-tag highlight">Vulkan Compute</span>
+                    <span class="skill-tag">Mobile GPUs (Adreno)</span>
                     <span class="skill-tag">Metal</span>
                     <span class="skill-tag">CUB / Thrust</span>
                     <span class="skill-tag">OpenMP</span>
@@ -1128,6 +1464,7 @@
                     <span class="skill-tag">Jenkins</span>
                     <span class="skill-tag">Linux / Windows</span>
                     <span class="skill-tag">Nvidia Jetson</span>
+                    <span class="skill-tag">Android NDK</span>
                     <span class="skill-tag">Qt</span>
                 </div>
             </div>
@@ -1139,9 +1476,9 @@
 <section id="projects">
     <div class="container">
         <div class="reveal">
-            <div class="section-label">Pet Projects</div>
+            <div class="section-label">More Projects</div>
             <h2 class="section-title">Personal Explorations</h2>
-            <p class="projects-subtitle">Independent explorations built from scratch on personal time and hardware, unrelated to any employer's products or proprietary technology. Spanning ML inference, developer tools, quantitative finance, audio, and mobile apps.</p>
+            <p class="projects-subtitle">More independent explorations built from scratch on personal time and hardware, unrelated to any employer's products or proprietary technology. Spanning ML inference, developer tools, quantitative finance, audio, and mobile apps.</p>
         </div>
         <div class="projects-grid">
 
@@ -1544,6 +1881,25 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Featured clips: fetched and played only while on screen; with reduced motion they get controls instead
+(() => {
+    const clips = document.querySelectorAll('video[data-autoplay]');
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        clips.forEach(v => { v.controls = true; });
+        return;
+    }
+    const clipObserver = new IntersectionObserver((entries) => {
+        entries.forEach(({ target: v, isIntersecting }) => {
+            if (isIntersecting && v.offsetParent !== null) {
+                v.play().catch(() => {}); // e.g. power saving: the poster stays
+            } else if (!v.paused) {
+                v.pause();
+            }
+        });
+    }, { threshold: 0.25 });
+    clips.forEach(v => clipObserver.observe(v));
+})();
 
 // Navbar background on scroll
 const navbar = document.getElementById('navbar');
