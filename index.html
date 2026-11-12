@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Artem Shamsuarov — Computer Vision & Real-Time Systems Engineer</title>
-    <meta name="description" content="Research and Software Development Engineer with 15+ years in C++/CUDA, computer vision, 3D reconstruction, SLAM and visual-inertial odometry, Gaussian splatting, and real-time image processing on GPUs and phones.">
+    <meta name="description" content="Senior Computer Vision Engineer and Team Lead with 15+ years in C++/CUDA, computer vision, 3D reconstruction, SLAM and visual-inertial odometry, Gaussian splatting, and real-time image processing on GPUs and phones.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -361,6 +361,11 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             line-height: 1.2;
+        }
+        .stat-number.stat-text {
+            font-size: 1.3rem;
+            line-height: 1.25;
+            padding-top: 0.35rem;
         }
         .stat-label {
             font-family: var(--font-mono);
@@ -1082,15 +1087,16 @@
     <div class="container">
         <div class="hero-content">
             <div class="hero-text">
-                <div class="overline">Research & Software Development Engineer</div>
+                <div class="overline">Senior Computer Vision Engineer & Team Lead</div>
                 <h1>
                     Artem<br>
                     <span class="gradient-text">Shamsuarov</span>
                 </h1>
                 <p class="subtitle">
                     15+ years building production-grade computer vision systems.
-                    Specialized in real-time 3D reconstruction, multi-camera pipelines,
-                    SLAM, and GPU-accelerated processing. Published researcher with 7+ patents.
+                    Specialized in real-time 3D reconstruction, SLAM, and GPU-accelerated
+                    processing on phones, embedded boards and desktop workstations.
+                    Team lead, published researcher and patent holder.
                     Most recently: visual-inertial odometry and Gaussian splatting running live on a phone.
                 </p>
                 <div class="hero-actions">
@@ -1114,16 +1120,16 @@
                     <div class="stat-label">Years C++ / CUDA</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number">7+</div>
-                    <div class="stat-label">Patents Granted</div>
+                    <div class="stat-number stat-text">Real-time 3D</div>
+                    <div class="stat-label">Phone · Embedded · Desktop GPU</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number">3</div>
-                    <div class="stat-label">Countries Worked</div>
+                    <div class="stat-number stat-text">Shipped</div>
+                    <div class="stat-label">Scanner engine · Android SDK · Mobile CV</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number">2</div>
-                    <div class="stat-label">Master's Degrees</div>
+                    <div class="stat-number stat-text">Published & Patented</div>
+                    <div class="stat-label">IEEE CVPR Workshops · IEEE CDC · SPIE</div>
                 </div>
             </div>
         </div>
@@ -1291,17 +1297,19 @@
                 <div class="timeline-header">
                     <div>
                         <div class="timeline-company">Artec Europe S.a.r.l.</div>
-                        <div class="timeline-role">Research & Software Development Engineer</div>
+                        <div class="timeline-role">Senior R&D Engineer · Team Manager</div>
                     </div>
                     <div class="timeline-meta">08/2020 — Present · Luxembourg</div>
                 </div>
                 <div class="timeline-body">
                     <ul>
-                        <li>Developed production-grade C++ algorithms for industrial hardware products</li>
-                        <li>Implemented real-time image processing pipelines for multi-sensor systems</li>
-                        <li>Achieved 10–100x performance improvements through GPU (CUDA) optimization</li>
-                        <li>Designed automated quality control and inspection systems</li>
-                        <li>Maintained CI/CD pipelines (Jenkins) and mentored junior engineers</li>
+                        <li>Lead the three-person Embedding Computing and Photogrammetry Reconstruction Group: technical direction, planning, code review, hiring and mentoring</li>
+                        <li>Architect and principal developer of a production Android SDK for real-time 3D scanning, adopted as the scanning core of the company's mobile app: tracking at 50–70 FPS on flagship phones, with on-device reconstruction and meshing at sub-millimeter accuracy</li>
+                        <li>Moved the compute-heavy stages onto the phone's GPU and NPU with Vulkan compute, ARM NEON and a quantized neural detector, keeping the frame rate stable under thermal load</li>
+                        <li>Designed the scale-aware surface reconstruction core shipped across the product line; scaled it to scans with hundreds of millions of points through out-of-core processing</li>
+                        <li>Built core stages of the photogrammetry pipeline: dense multi-view stereo on the GPU, depth-map filtering and memory-aware depth fusion</li>
+                        <li>Implemented real-time image processing pipelines for multi-sensor systems, with 10–100x performance improvements through GPU (CUDA) optimization</li>
+                        <li>Designed automated quality control for releases: results are checked against a reference, with accuracy and performance gates on the device</li>
                     </ul>
                 </div>
             </div>
@@ -1309,17 +1317,19 @@
                 <div class="timeline-header">
                     <div>
                         <div class="timeline-company">Artec Group</div>
-                        <div class="timeline-role">Research & Software Development Engineer</div>
+                        <div class="timeline-role">R&D Engineer — Real-Time 3D Reconstruction</div>
                     </div>
                     <div class="timeline-meta">09/2015 — 08/2020 · Moscow, Russia</div>
                 </div>
                 <div class="timeline-body">
                     <ul>
-                        <li>Built real-time algorithms for embedded hardware with onboard processing</li>
-                        <li>Implemented geometry processing and spatial computing algorithms for production systems</li>
-                        <li>Achieved 70% latency reduction through CUDA/OpenCL/Vulkan optimization</li>
+                        <li>Created, as part of a small R&D team, the real-time tracking and fusion engine of the Artec Leo handheld scanner: 20+ FPS on NVIDIA Jetson with all processing onboard</li>
+                        <li>Built embedded SLAM on the GPU: hybrid texture and geometry tracking, IMU fusion, volumetric fusion with streaming of large scenes, loop closure and relocalization</li>
+                        <li>Moved the complete frame-processing path onto the embedded GPU, including sub-pixel marker detection, matching and pose estimation</li>
+                        <li>Achieved 70% latency reduction through CUDA/OpenCL/Vulkan optimization; built a common compute layer for CUDA, OpenCL, Vulkan and Metal</li>
+                        <li>Built the next-best-view planner for robotic and turntable scanning, with GPU visibility analysis and views constrained by the device kinematics</li>
                         <li>Designed software architecture for distributed computing clusters</li>
-                        <li>Built multi-platform apps (iOS/Swift/ObjC, Windows/C++) for industrial products</li>
+                        <li>Built multi-platform apps (iOS/Swift/ObjC, Windows/C++), including an iOS depth-camera scanning prototype</li>
                     </ul>
                 </div>
             </div>
@@ -1333,10 +1343,10 @@
                 </div>
                 <div class="timeline-body">
                     <ul>
-                        <li>Developed CV algorithms and apps deployed to millions of mobile users</li>
-                        <li>Built complete 3D reconstruction pipeline: SfM, SLAM, depth estimation, depth fusion</li>
-                        <li>Implemented near-duplicate image retrieval and face detection systems</li>
-                        <li>Published at IEEE CVPR Workshop; secured 3 patents</li>
+                        <li>Developed CV algorithms and apps shipped in production Samsung phones: object and face detection, 3D head reconstruction, near-duplicate image retrieval</li>
+                        <li>Built 3DCapture, a complete 3D reconstruction pipeline from monocular smartphone video: SfM, dense depth estimation, depth fusion</li>
+                        <li>Developed real-time SLAM on a mobile GPU (OpenCL) with loop closure, optimized with fixed-point arithmetic and NEON SIMD</li>
+                        <li>Published at IEEE CVPR Workshops and IS&T Electronic Imaging; secured 3 patents</li>
                     </ul>
                 </div>
             </div>
@@ -1350,9 +1360,10 @@
                 </div>
                 <div class="timeline-body">
                     <ul>
-                        <li>Developed optimization algorithms for computational lithography at next-gen semiconductor nodes</li>
-                        <li>Created C++/Qt/Python tools for Optical Proximity Correction and Resolution Enhancement</li>
-                        <li>Collaborated with Cadence, Mentor Graphics, Synopsys; published at SPIE; obtained 2 US patents</li>
+                        <li>Designed a quasi-Newton optimization method for computational lithography and source-mask optimization at sub-20 nm nodes</li>
+                        <li>Created C++/Qt/Python tools for Optical Proximity Correction and Resolution Enhancement: 10× faster OPC flow</li>
+                        <li>Built image processing for nanometer-scale defect detection and metrology</li>
+                        <li>Collaborated with Cadence, Mentor Graphics, Synopsys; published 3 papers at SPIE; obtained 2 US patents</li>
                     </ul>
                 </div>
             </div>
@@ -1373,6 +1384,8 @@
                 <div class="skill-tags">
                     <span class="skill-tag highlight">C++ (Expert, 15+ yrs)</span>
                     <span class="skill-tag highlight">CUDA (Expert)</span>
+                    <span class="skill-tag">C++11 to C++20</span>
+                    <span class="skill-tag">GLSL</span>
                     <span class="skill-tag">Python</span>
                     <span class="skill-tag">Kotlin</span>
                     <span class="skill-tag">C#</span>
@@ -1380,6 +1393,7 @@
                     <span class="skill-tag">OOP & Design Patterns</span>
                     <span class="skill-tag">STL / Boost</span>
                     <span class="skill-tag">Multithreading</span>
+                    <span class="skill-tag">Lock-free Data Structures</span>
                     <span class="skill-tag">Memory Management</span>
                 </div>
             </div>
@@ -1391,12 +1405,17 @@
                     <span class="skill-tag highlight">3D Reconstruction</span>
                     <span class="skill-tag highlight">SLAM</span>
                     <span class="skill-tag highlight">Visual-Inertial Odometry</span>
-                    <span class="skill-tag">Kalman Filtering (MSCKF / ESKF)</span>
-                    <span class="skill-tag">IMU Calibration</span>
+                    <span class="skill-tag highlight">Photogrammetry</span>
+                    <span class="skill-tag">Kalman Filtering (MSCKF, EKF, UKF)</span>
+                    <span class="skill-tag">IMU Calibration & Preintegration</span>
+                    <span class="skill-tag">Loop Closure & Relocalization</span>
                     <span class="skill-tag">Structure-from-Motion</span>
                     <span class="skill-tag">Feature Detection & Matching</span>
+                    <span class="skill-tag">Sub-pixel Marker Detection</span>
+                    <span class="skill-tag">Robust Estimation (PROSAC, Lo-RANSAC)</span>
                     <span class="skill-tag">Object Detection</span>
                     <span class="skill-tag">Stereo Vision</span>
+                    <span class="skill-tag">Multi-view Stereo</span>
                     <span class="skill-tag">Bundle Adjustment</span>
                     <span class="skill-tag">Camera Calibration</span>
                     <span class="skill-tag">Optical Flow</span>
@@ -1409,9 +1428,13 @@
                     <span class="skill-tag highlight">3D Gaussian Splatting</span>
                     <span class="skill-tag">Point Cloud Processing</span>
                     <span class="skill-tag">Mesh Generation</span>
-                    <span class="skill-tag">Surface Reconstruction</span>
-                    <span class="skill-tag">Registration</span>
+                    <span class="skill-tag highlight">Surface Reconstruction</span>
+                    <span class="skill-tag">Registration (ICP)</span>
                     <span class="skill-tag">Real-time Fusion</span>
+                    <span class="skill-tag">TSDF with Voxel Hashing</span>
+                    <span class="skill-tag">Poisson / IMLS</span>
+                    <span class="skill-tag">Marching Cubes</span>
+                    <span class="skill-tag">Out-of-core Processing</span>
                     <span class="skill-tag">Spatial Data Structures</span>
                     <span class="skill-tag">Next-best-view Planning</span>
                 </div>
@@ -1422,18 +1445,23 @@
                     <span class="skill-tag highlight">CUDA Optimization</span>
                     <span class="skill-tag">OpenCL</span>
                     <span class="skill-tag highlight">Vulkan Compute</span>
+                    <span class="skill-tag highlight">On-device Inference (NPU)</span>
                     <span class="skill-tag">Mobile GPUs (Adreno)</span>
+                    <span class="skill-tag">SIMD (ARM NEON, SSE/AVX)</span>
+                    <span class="skill-tag">Quantization (ONNX Runtime, QNN)</span>
                     <span class="skill-tag">Metal</span>
                     <span class="skill-tag">CUB / Thrust</span>
                     <span class="skill-tag">OpenMP</span>
                     <span class="skill-tag">TBB</span>
-                    <span class="skill-tag">MPI</span>
                 </div>
             </div>
             <div class="skill-group reveal">
                 <div class="skill-group-title"><span class="icon">📐</span> Math & Algorithms</div>
                 <div class="skill-tags">
                     <span class="skill-tag">Optimization Algorithms</span>
+                    <span class="skill-tag">Nonlinear Least Squares</span>
+                    <span class="skill-tag">Optimization on Lie Groups</span>
+                    <span class="skill-tag">Quasi-Newton & Convex (ADMM)</span>
                     <span class="skill-tag">Computational Geometry</span>
                     <span class="skill-tag">Linear Algebra</span>
                     <span class="skill-tag">Numerical Methods</span>
@@ -1449,13 +1477,13 @@
                     <span class="skill-tag">Open3D</span>
                     <span class="skill-tag">CGAL</span>
                     <span class="skill-tag">Colmap</span>
-                    <span class="skill-tag">ROS</span>
                     <span class="skill-tag">Eigen</span>
                     <span class="skill-tag">Ceres</span>
+                    <span class="skill-tag">g2o</span>
+                    <span class="skill-tag">ONNX Runtime</span>
                     <span class="skill-tag">Git</span>
                     <span class="skill-tag">CMake</span>
-                    <span class="skill-tag">Docker</span>
-                    <span class="skill-tag">Jenkins</span>
+                    <span class="skill-tag">Google Test</span>
                     <span class="skill-tag">Linux / Windows</span>
                     <span class="skill-tag">Nvidia Jetson</span>
                     <span class="skill-tag">Android NDK</span>
